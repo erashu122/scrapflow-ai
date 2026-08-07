@@ -1,0 +1,21 @@
+services:
+  mongo:
+    image: mongo:8.0
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: scrapflow
+      MONGO_INITDB_ROOT_PASSWORD: scrapflow
+      MONGO_INITDB_DATABASE: scrapflow
+    ports: ["27017:27017"]
+    volumes: ["mongo-data:/data/db"]
+  api:
+    build: ./backend
+    environment:
+      MONGODB_URI: mongodb://scrapflow:scrapflow@mongo:27017/scrapflow?authSource=admin
+    ports: ["8080:8080"]
+    depends_on: [mongo]
+  web:
+    build: ./frontend
+    ports: ["5173:80"]
+    depends_on: [api]
+volumes:
+  mongo-data:

@@ -1,0 +1,6 @@
+spring:
+  application.name: scrapflow-api
+  data.mongodb.uri: ${MONGODB_URI:mongodb://scrapflow:scrapflow@localhost:27017/scrapflow?authSource=admin}
+server:
+  port: ${PORT:8080}
+springdoc.swagger-ui.path: /swagger-ui.html
