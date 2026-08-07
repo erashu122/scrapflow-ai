@@ -11,11 +11,15 @@ services:
     build: ./backend
     environment:
       MONGODB_URI: mongodb://scrapflow:scrapflow@mongo:27017/scrapflow?authSource=admin
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set in the environment}
+      SECURE_COOKIES: ${SECURE_COOKIES:-false}
     ports: ["8080:8080"]
     depends_on: [mongo]
+    volumes: ["buyer-documents:/var/lib/scrapflow/documents"]
   web:
     build: ./frontend
     ports: ["5173:80"]
     depends_on: [api]
 volumes:
   mongo-data:
+  buyer-documents:

@@ -1,0 +1,5 @@
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { authApi } from '../features/auth/api';
+import { AuthLayout } from './LoginPage';
+export function VerifyEmailPage() { const [params] = useSearchParams(); const [state, setState] = useState<'loading' | 'success' | 'error'>('loading'); useEffect(() => { const token = params.get('token'); if (!token) { setState('error'); return; } authApi.verifyEmail(token).then(() => setState('success')).catch(() => setState('error')); }, [params]); return <AuthLayout title={state === 'success' ? 'Email verified' : state === 'error' ? 'Verification link invalid' : 'Verifying your email'} subtitle={state === 'success' ? 'Your account is ready for the next onboarding step.' : state === 'error' ? 'This verification link has expired or was already used.' : 'Please wait a moment.'}><div className="auth-success"><Link className="primary auth-submit" to="/login">Continue to sign in</Link></div></AuthLayout>; }
