@@ -11,5 +11,7 @@ public record AuthProperties(
     Duration verificationTokenTtl,
     Duration passwordResetTokenTtl,
     String bootstrapAdminEmail,
-    String bootstrapAdminPassword
+    String bootstrapAdminPassword,
+    String webBaseUrl,
+    String mailFrom
 ) { }

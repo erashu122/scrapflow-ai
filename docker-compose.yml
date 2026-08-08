@@ -13,13 +13,19 @@ services:
       MONGODB_URI: mongodb://scrapflow:scrapflow@mongo:27017/scrapflow?authSource=admin
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set in the environment}
       SECURE_COOKIES: ${SECURE_COOKIES:-false}
+      MAIL_HOST: mailpit
+      MAIL_PORT: 1025
+      APP_WEB_URL: http://localhost:5173
     ports: ["8080:8080"]
-    depends_on: [mongo]
+    depends_on: [mongo, mailpit]
     volumes: ["buyer-documents:/var/lib/scrapflow/documents"]
   web:
     build: ./frontend
     ports: ["5173:80"]
     depends_on: [api]
+  mailpit:
+    image: axllent/mailpit:v1.27
+    ports: ["8025:8025"]
 volumes:
   mongo-data:
   buyer-documents:
