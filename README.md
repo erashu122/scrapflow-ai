@@ -27,3 +27,5 @@ Copy `backend/.env.example` to `backend/.env` before production deployment and p
 ## Authentication email
 
 Local Docker Compose includes Mailpit. Account-verification and password-reset emails are available at `http://localhost:8025`. For any shared or production environment, set the SMTP and `APP_WEB_URL` values from `backend/.env.example`; the API returns `503 Service Unavailable` if email delivery cannot be completed, rather than issuing an unusable verification or reset flow.
+
+Buyer uploads are size-limited and validated against PDF, PNG, and JPEG file signatures. The MIME type submitted by a browser is never used to determine the stored document type.
